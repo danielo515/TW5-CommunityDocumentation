@@ -1,0 +1,8 @@
+{
+	"title": "$:/plugins/danielo515/GASuploader/config",
+	"description": "GOOGLE apps script syncer",
+	"author": "Danielo Rodriguez",
+	"core-version": ">=5.1.4",
+	"version":"0.1.0",
+	"source":"https://github.com/danielo515/TW5-GASUploader"
+}

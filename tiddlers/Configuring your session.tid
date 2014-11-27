@@ -1,0 +1,18 @@
+created: 20141127074504606
+modified: 20141127081955284
+title: Configuring your session
+type: text/vnd.tiddlywiki
+
+If you are ready to start  maybe you want to configure some parameters for your editing session:
+
+!!Username
+The tiddlers will be saved with your username as creator.
+
+''Username for signing edits:'' <$edit-text  tag="input" tiddler="$:/status/UserName"/>
+
+!!Subfolder
+
+All tiddlers are saved under the same folder. But you can specify a subfolder name and tiddlers will be uploaded to that subfolder within the main folder. 
+
+
+''folder name'': <$edit-text tiddler="$:/plugins/danielo515/GASuploader/config/subfolder" tag="input" default="" placeholder="FolderName"/>
