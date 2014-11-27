@@ -125,6 +125,10 @@ Error message and password prompt
 
 <li>$:/DefaultTiddlers</li>
 
+<li>$:/GoogleAnalyticsAccount</li>
+
+<li>$:/GoogleAnalyticsDomain</li>
+
 <li>$:/Import!!popup-The first tiddler</li>
 
 <li>$:/isEncrypted</li>
@@ -139,7 +143,11 @@ Error message and password prompt
 
 <li>$:/plugins/danielo515/GASuploader/temp/uploading</li>
 
+<li>$:/plugins/tiddlywiki/browser-sniff</li>
+
 <li>$:/plugins/tiddlywiki/codemirror</li>
+
+<li>$:/plugins/tiddlywiki/googleanalytics</li>
 
 <li>$:/plugins/tiddlywiki/highlight</li>
 
@@ -148,6 +156,8 @@ Error message and password prompt
 <li>$:/SiteTitle</li>
 
 <li>$:/StoryList</li>
+
+<li>$:/temp/advancedsearch</li>
 
 <li>$:/temp/info-plugin</li>
 
@@ -5378,6 +5388,12 @@ Error message and password prompt
 [[How does this work?]]
 [[Configuring your session]]</pre>
 </div>
+<div title="$:/GoogleAnalyticsAccount">
+<pre>UA-57170401-1</pre>
+</div>
+<div created="20141127145418737" modified="20141127145454000" title="$:/GoogleAnalyticsDomain">
+<pre>https://danielo515.github.io/TW5-CommunityDocumentation</pre>
+</div>
 <div created="20141127083635304" modified="20141127083634260" title="$:/Import!!popup-The first tiddler" type="text/vnd.tiddlywiki">
 <pre>yes</pre>
 </div>
@@ -5393,6 +5409,10 @@ Error message and password prompt
             &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/config/script_url&quot;,
             &quot;type&quot;: &quot;text/plain&quot;,
             &quot;text&quot;: &quot;https://script.google.com/macros/s/AKfycbyt_ER__B3ilAyPZb7IGUnNRgPAzHBTwSZZfPmVJymKN1u0jp8R/exec&quot;
+        },
+        &quot;$:/plugins/danielo515/GASuploader/config/subfolder&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/config/subfolder&quot;,
+            &quot;text&quot;: &quot;&quot;
         },
         &quot;$:/plugins/danielo515/GASuploader/config/useImporter&quot;: {
             &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/config/useImporter&quot;,
@@ -5441,7 +5461,7 @@ Error message and password prompt
             &quot;module-type&quot;: &quot;startup&quot;
         },
         &quot;$:/plugins/danielo515/GASuploader/modules/utils/GAS_Http_Handler.js&quot;: {
-            &quot;text&quot;: &quot;/*\\\ntitle: $:/plugins/danielo515/GASuploader/modules/utils/GAS_Http_Handler.js\ntype: application/javascript\nmodule-type: utils\n\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\&quot;use strict\&quot;;\n\nvar widget = require(\&quot;$:/core/modules/widgets/widget.js\&quot;);\nvar STATE_UPLOADING = \&quot;$:/plugins/danielo515/GASuploader/temp/uploading\&quot;,\n    STATE_UPLOADED = \&quot;$:/plugins/danielo515/GASuploader/temp/uploaded\&quot;,\n    GAS_SUBFOLDER = \&quot;$:/plugins/danielo515/GASuploader/config/subfolder\&quot;,\n    config;\n\n\nvar GAS_Http_Handler = function(wiki) {\n\tthis.wiki = wiki;\n\tthis.logger = new $tw.utils.Logger(\&quot;GAS_Http_Handler\&quot;);\n\tthis.importer = require(\&quot;$:/plugins/danielo515/GASuploader/lib/tiddlerImporter.js\&quot;).GAS_importer;\n\tvar utils = require(\&quot;$:/plugins/danielo515/GASuploader/lib/utils.js\&quot;).utils;\n\tthis.getURL = utils[\&quot;getURL\&quot;];\n\tconfig = utils.config;\n};\n\n\nGAS_Http_Handler.prototype.postTiddlers = function(tiddlersFilter){\n \tif(tiddlersFilter === \&quot;\&quot;) { return }\n\tvar tiddlersList=$tw.wiki.filterTiddlers(tiddlersFilter),self=this,\n\ttiddlersCollection=[];\n\t\n\tif(tiddlersList.length === 0){\n\t\tthis.displayNotification(\&quot;Error\&quot;,\&quot;empty tiddlers list\&quot;,\&quot; \&quot;);\n\t\tthis.removeProcessingState();\n\t}\n\n\ttiddlersList.forEach(function(title){\n\t\ttiddlersCollection.push($tw.wiki.getTiddler(title).fields);\n\t});\n\n\tvar postData = JSON.stringify(tiddlersCollection);\n\tself.logger.log(\&quot;PostData: \&quot;,postData);\n\n\tthis.tiddlerBeingProcessed=tiddlersList.length === 1 ? tiddlersList[0] : tiddlersList.length+\&quot; tiddlers\&quot;;\n\tthis.setProcessingState(\&quot;upload\&quot;);\n\n\t$tw.utils.httpRequest({\n\t\turl: this.getURL(\&quot;addTiddlers\&quot;, this.getSubfolderOption()),\n\t\ttype: \&quot;POST\&quot;,\n\t\tdata: postData,\n\t\tcallback: postTiddlersCallback\n\t});\n\n\tfunction postTiddlersCallback(err,data){\n\t\tif(err) {\n\t\t self.logger.log(\&quot;Something went wrong while Posting \&quot;,err);\n\t\t}else{\n\t\t\tself.logger.log(\&quot;Got respose from server!\&quot;);\n\t\t\tself.logger.log(data);\n\t\t\tvar response = JSON.parse(data).response; \n\t\t\t//response should contain an array of tiddler fields\n\t\t\tif(response.forEach){\n\t\t\t\tresponse.forEach(function(tiddler){\n\t\t\t\t\tself.updateTiddler(tiddler.title,tiddler);\n\t\t\t\t});\n\t\t\t\tself.setUploadedState();\n\t\t\t}\n\t\t}\n\n\t\tself.removeProcessingState();\n\t}\n\n};\n\nGAS_Http_Handler.prototype.updateTiddler=function(tiddlerTitle,newFields){\n\tvar fields = $tw.wiki.getTiddler(tiddlerTitle).fields;\n\t$tw.wiki.addTiddler(new $tw.Tiddler(fields,{\&quot;gas_id\&quot;:newFields.id,\&quot;gas_uploaded\&quot;: new Date()}));\n\tthis.logger.log(\&quot;Updated \&quot;,tiddlerTitle,\&quot; with id: \&quot;,newFields.id);\n};\n\nGAS_Http_Handler.prototype.postTiddler = function(tiddlerName){\n\n\tthis.postTiddlers([\&quot;[title[\&quot;,tiddlerName,\&quot;]]\&quot;].join(\&quot;\&quot;));\n\n};\n\n\nGAS_Http_Handler.prototype.setProcessingState = function(action){\n\tthis.logger.log(\&quot;Posting tiddler \&quot;,this.tiddlerBeingProcessed);\n\tthis.setState(STATE_UPLOADING,this.tiddlerBeingProcessed);\n\tthis.displayNotification(action,this.tiddlerBeingProcessed);\n};\n\nGAS_Http_Handler.prototype.setUploadedState = function(){\n\tthis.wiki.addTiddler( new $tw.Tiddler({\&quot;title\&quot;:STATE_UPLOADED,\&quot;text\&quot;:this.uploadingTiddler}));\n\t$tw.notifier.display(\&quot;$:/plugins/danielo515/GASuploader/language/Notifications/Saved/Tiddler\&quot;);\n};\n\nGAS_Http_Handler.prototype.removeProcessingState = function(){\n\tthis.wiki.addTiddler( new $tw.Tiddler({\&quot;title\&quot;:STATE_UPLOADING,\&quot;text\&quot;:\&quot;\&quot;}));\n\tthis.tiddlerBeingProcessed = \&quot;\&quot;;\n};\n\nGAS_Http_Handler.prototype.setState = function(stateTiddler,tiddlerBeingProcessed){\n\tthis.wiki.addTiddler( new $tw.Tiddler({\&quot;title\&quot;:stateTiddler,\&quot;text\&quot;:tiddlerBeingProcessed}));\n};\n\nGAS_Http_Handler.prototype.displayNotification = function(action,text,prefix){\n\tvar message = [prefix || \&quot;Starting to\&quot;,action,text].join(\&quot; \&quot;),\n\tnotificationTiddler=\&quot;$:/state/GAS/Processing\&quot;;\n\tthis.wiki.addTiddler( new $tw.Tiddler({\&quot;title\&quot;:notificationTiddler,\&quot;text\&quot;:message}));\n\t$tw.notifier.display(notificationTiddler);\n};\n\nGAS_Http_Handler.prototype.listTiddlers = function(folder){\n\tvar self = this;\n\n\tthis.displayNotification(\&quot;list folder\&quot;,folder);\n\n\t$tw.utils.httpRequest({\n\t\turl: this.getURL(\&quot;listTiddlers\&quot;,this.getSubfolderOption(folder)),\n\t\ttype: \&quot;GET\&quot;,\n\t\tcallback: listTiddlersCallback\n\t});\n\n\tfunction listTiddlersCallback(err,data){\n\t\tif(err){\n\t\t\tself.logger.log(config.server_communication_error,err);\n\t\t\tthis.displayNotification(config.server_communication_error,err,\&quot;\&quot;);\n\t\t}else{\n\t\t\tself.logger.log(\&quot;List retrieved from server: \&quot;,data);\n\t\t\tself.importer(config.server_list,JSON.parse(data).response,true);\n\t\t\tself.displayNotification(config.folder_listed,folder,\&quot;\&quot;);\n\t\t}\n\t}\n};\n\n\nGAS_Http_Handler.prototype.getTiddlers = function(descriptionsArray){\n\tvar self = this;\n\tthis.setProcessingState(\&quot;download\&quot;);\n\n\t$tw.utils.httpRequest({\n\t\turl: this.getURL(\&quot;getTiddlers\&quot;),\n\t\ttype: \&quot;POST\&quot;,\n\t\tcallback: getTiddlersCallback,\n\t\tdata: JSON.stringify(descriptionsArray)\n\t});\n\n\tfunction getTiddlersCallback(err,data){\n\t\tif(err) {\n\t\t self.logger.log(\&quot;Something went wrong while gettingTiddler \&quot;,err);\n\t\t}else{\n\t\t\tself.logger.log(\&quot;Got response from server!\&quot;);self.logger.log(data);\n\t\t\tvar response = JSON.parse(data).response;\n\t\t\tif(response){\n\t\t\t\tself.importer(config.import_tiddler,response,config.import_manager(),true);\n\t\t\t}\n\t\t}\n\tself.removeProcessingState();\n\t}\n};\n\n\nGAS_Http_Handler.prototype.getTiddlerbyID = function(tiddlerTitle){\n\t// try to get the tiddler from  the list of available tiddlers on server , if not fallback to tiddler store\n\tvar tiddler = this.wiki.getSubTiddler(config.server_list,tiddlerTitle) || this.wiki.getTiddler(tiddlerTitle),\n\tself=this;\n\tthis.tiddlerBeingProcessed = tiddlerTitle;\n\tif(tiddler){\n\t\tvar fields=tiddler.fields,\n\t\t\tid=fields.gas_id || fields.id; //id cames from server, gas_id from tiddler. Should be changed?\n\t\tif(id){\n\t\t\tthis.getTiddlers([{\&quot;id\&quot;:id}]); //single item array case\n\t\t}else{ \n\t\t\tself.logger.log(\&quot;The tiddler \&quot;,tiddlerTitle,\&quot; does not have a valid gas_id\&quot;);\n\t\t}\n\t}else { self.logger.log(\&quot;No information found for \&quot;,tiddlerTitle,\&quot; in any of the stores\&quot;);}\n};\n\n\nGAS_Http_Handler.prototype.getTiddlerbyTitle = function(tiddlerTitle){\n\tthis.tiddlerBeingProcessed = tiddlerTitle;\n\tthis.getTiddlers([{\&quot;title\&quot;:tiddlerTitle}]);//single item array case\n};\n\n/* Returns the a folder name in the form required by getUrl\n   @foldername a folder name to add to the option. If not provided fallback to the\n    \twiki globaly defined */\nGAS_Http_Handler.prototype.getSubfolderOption= function(foldername){\n\tthis.logger.log(\&quot;So you want the folder  \&quot;,foldername);\n\tvar subfolder = foldername || this.getSubfolder();\n\tif(subfolder){\n\t\treturn {\&quot;folder\&quot;:subfolder};\n\t}\n\t\n\treturn undefined; //undefined is processed as option\n};\n\nGAS_Http_Handler.prototype.getSubfolder = function (){\n\tvar subfolder = this.wiki.getTiddlerText(GAS_SUBFOLDER).trim();\n\treturn subfolder;\n};\n\nexports.GAS_Http_Handler = GAS_Http_Handler;\n\n})();&quot;,
+            &quot;text&quot;: &quot;/*\\\ntitle: $:/plugins/danielo515/GASuploader/modules/utils/GAS_Http_Handler.js\ntype: application/javascript\nmodule-type: utils\n\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\&quot;use strict\&quot;;\n\nvar widget = require(\&quot;$:/core/modules/widgets/widget.js\&quot;);\nvar STATE_UPLOADING = \&quot;$:/plugins/danielo515/GASuploader/temp/uploading\&quot;,\n    STATE_UPLOADED = \&quot;$:/plugins/danielo515/GASuploader/temp/uploaded\&quot;,\n    GAS_SUBFOLDER = \&quot;$:/plugins/danielo515/GASuploader/config/subfolder\&quot;,\n    config;\n\n\nvar GAS_Http_Handler = function(wiki) {\n\tthis.wiki = wiki;\n\tthis.logger = new $tw.utils.Logger(\&quot;GAS_Http_Handler\&quot;);\n\tthis.importer = require(\&quot;$:/plugins/danielo515/GASuploader/lib/tiddlerImporter.js\&quot;).GAS_importer;\n\tvar utils = require(\&quot;$:/plugins/danielo515/GASuploader/lib/utils.js\&quot;).utils;\n\tthis.getURL = utils[\&quot;getURL\&quot;];\n\tconfig = utils.config;\n};\n\n\nGAS_Http_Handler.prototype.postTiddlers = function(tiddlersFilter){\n \tif(tiddlersFilter === \&quot;\&quot;) { return }\n\tvar tiddlersList=$tw.wiki.filterTiddlers(tiddlersFilter),self=this,\n\ttiddlersCollection=[];\n\t\n\tif(tiddlersList.length === 0){\n\t\tthis.displayNotification(\&quot;Error\&quot;,\&quot;empty tiddlers list\&quot;,\&quot; \&quot;);\n\t\tthis.removeProcessingState();\n\t}\n\n\ttiddlersList.forEach(function(title){\n\t\ttiddlersCollection.push($tw.wiki.getTiddler(title).fields);\n\t});\n\n\tvar postData = JSON.stringify(tiddlersCollection);\n\tself.logger.log(\&quot;PostData: \&quot;,postData);\n\n\tthis.tiddlerBeingProcessed=tiddlersList.length === 1 ? tiddlersList[0] : tiddlersList.length+\&quot; tiddlers\&quot;;\n\tthis.setProcessingState(\&quot;upload\&quot;);\n\n\t$tw.utils.httpRequest({\n\t\turl: this.getURL(\&quot;addTiddlers\&quot;, this.getSubfolderOption()),\n\t\ttype: \&quot;POST\&quot;,\n\t\tdata: postData,\n\t\tcallback: postTiddlersCallback\n\t});\n\n\tfunction postTiddlersCallback(err,data){\n\t\tif(err) {\n\t\t self.logger.log(\&quot;Something went wrong while Posting \&quot;,err);\n\t\t}else{\n\t\t\tself.logger.log(\&quot;Got respose from server!\&quot;);\n\t\t\tself.logger.log(data);\n\t\t\tvar response = JSON.parse(data).response; \n\t\t\t//response should contain an array of tiddler fields\n\t\t\tif(response.forEach){\n\t\t\t\tresponse.forEach(function(tiddler){\n\t\t\t\t\tself.updateTiddler(tiddler.title,tiddler);\n\t\t\t\t});\n\t\t\t\tself.setUploadedState();\n\t\t\t}\n\t\t}\n\n\t\tself.removeProcessingState();\n\t}\n\n};\n\nGAS_Http_Handler.prototype.updateTiddler=function(tiddlerTitle,newFields){\n\tvar fields = $tw.wiki.getTiddler(tiddlerTitle).fields;\n\t$tw.wiki.addTiddler(new $tw.Tiddler(fields,{\&quot;gas_id\&quot;:newFields.id,\&quot;gas_uploaded\&quot;: new Date()}));\n\tthis.logger.log(\&quot;Updated \&quot;,tiddlerTitle,\&quot; with id: \&quot;,newFields.id);\n};\n\nGAS_Http_Handler.prototype.postTiddler = function(tiddlerName){\n\n\tthis.postTiddlers([\&quot;[title[\&quot;,tiddlerName,\&quot;]]\&quot;].join(\&quot;\&quot;));\n\n};\n\n\nGAS_Http_Handler.prototype.setProcessingState = function(action){\n\tthis.logger.log(\&quot;Posting tiddler \&quot;,this.tiddlerBeingProcessed);\n\tthis.setState(STATE_UPLOADING,this.tiddlerBeingProcessed);\n\tthis.displayNotification(action,this.tiddlerBeingProcessed);\n};\n\nGAS_Http_Handler.prototype.setUploadedState = function(){\n\tthis.wiki.addTiddler( new $tw.Tiddler({\&quot;title\&quot;:STATE_UPLOADED,\&quot;text\&quot;:this.uploadingTiddler}));\n\t$tw.notifier.display(\&quot;$:/plugins/danielo515/GASuploader/language/Notifications/Saved/Tiddler\&quot;);\n};\n\nGAS_Http_Handler.prototype.removeProcessingState = function(){\n\tthis.wiki.addTiddler( new $tw.Tiddler({\&quot;title\&quot;:STATE_UPLOADING,\&quot;text\&quot;:\&quot;\&quot;}));\n\tthis.tiddlerBeingProcessed = \&quot;\&quot;;\n};\n\nGAS_Http_Handler.prototype.setState = function(stateTiddler,tiddlerBeingProcessed){\n\tthis.wiki.addTiddler( new $tw.Tiddler({\&quot;title\&quot;:stateTiddler,\&quot;text\&quot;:tiddlerBeingProcessed}));\n};\n\nGAS_Http_Handler.prototype.displayNotification = function(action,text,prefix){\n\tvar message = [prefix || \&quot;Starting to\&quot;,action,text].join(\&quot; \&quot;),\n\tnotificationTiddler=\&quot;$:/state/GAS/Processing\&quot;;\n\tthis.wiki.addTiddler( new $tw.Tiddler({\&quot;title\&quot;:notificationTiddler,\&quot;text\&quot;:message}));\n\t$tw.notifier.display(notificationTiddler);\n};\n\nGAS_Http_Handler.prototype.listTiddlers = function(folder){\n\tvar self = this;\n\n\tthis.displayNotification(\&quot;list folder\&quot;,folder);\n\n\t$tw.utils.httpRequest({\n\t\turl: this.getURL(\&quot;listTiddlers\&quot;,this.getSubfolderOption(folder)),\n\t\ttype: \&quot;GET\&quot;,\n\t\tcallback: listTiddlersCallback\n\t});\n\n\tfunction listTiddlersCallback(err,data){\n\t\tif(err){\n\t\t\tself.logger.log(config.server_communication_error,err);\n\t\t\tthis.displayNotification(config.server_communication_error,err,\&quot;\&quot;);\n\t\t}else{\n\t\t\tself.logger.log(\&quot;List retrieved from server: \&quot;,data);\n\t\t\tself.importer(config.server_list,JSON.parse(data).response,true);\n\t\t\tself.displayNotification(config.folder_listed,folder,\&quot;\&quot;);\n\t\t}\n\t}\n};\n\n\nGAS_Http_Handler.prototype.getTiddlers = function(descriptionsArray){\n\tvar self = this;\n\tthis.setProcessingState(\&quot;download\&quot;);\n\n\t$tw.utils.httpRequest({\n\t\turl: this.getURL(\&quot;getTiddlers\&quot;),\n\t\ttype: \&quot;POST\&quot;,\n\t\tcallback: getTiddlersCallback,\n\t\tdata: JSON.stringify(descriptionsArray)\n\t});\n\n\tfunction getTiddlersCallback(err,data){\n\t\tif(err) {\n\t\t self.logger.log(\&quot;Something went wrong while gettingTiddler \&quot;,err);\n\t\t}else{\n\t\t\tself.logger.log(\&quot;Got response from server!\&quot;);self.logger.log(data);\n\t\t\tvar response = JSON.parse(data).response;\n\t\t\tif(response){\n\t\t\t\tself.importer(config.import_tiddler,response,config.import_manager(),true);\n\t\t\t}\n\t\t}\n\tself.removeProcessingState();\n\t}\n};\n\n\nGAS_Http_Handler.prototype.getTiddlerbyID = function(tiddlerTitle){\n\t// try to get the tiddler from  the list of available tiddlers on server , if not fallback to tiddler store\n\tvar tiddler = this.wiki.getSubTiddler(config.server_list,tiddlerTitle) || this.wiki.getTiddler(tiddlerTitle),\n\tself=this;\n\tthis.tiddlerBeingProcessed = tiddlerTitle;\n\tif(tiddler){\n\t\tvar fields=tiddler.fields,\n\t\t\tid=fields.gas_id || fields.id; //id cames from server, gas_id from tiddler. Should be changed?\n\t\tif(id){\n\t\t\tthis.getTiddlers([{\&quot;id\&quot;:id}]); //single item array case\n\t\t}else{ \n\t\t\tself.logger.log(\&quot;The tiddler \&quot;,tiddlerTitle,\&quot; does not have a valid gas_id\&quot;);\n\t\t}\n\t}else { self.logger.log(\&quot;No information found for \&quot;,tiddlerTitle,\&quot; in any of the stores\&quot;);}\n};\n\n\nGAS_Http_Handler.prototype.getTiddlerbyTitle = function(tiddlerTitle){\n\tthis.tiddlerBeingProcessed = tiddlerTitle;\n\tthis.getTiddlers([{\&quot;title\&quot;:tiddlerTitle}]);//single item array case\n};\n\n/* Returns the a folder name in the form required by getUrl\n   @foldername a folder name to add to the option. If not provided fallback to the\n    \twiki globaly defined */\nGAS_Http_Handler.prototype.getSubfolderOption= function(foldername){\n\tthis.logger.log(\&quot;So you want the folder  \&quot;,foldername);\n\tvar subfolder = foldername || this.getSubfolder();\n\tif(subfolder){\n\t\treturn {\&quot;folder\&quot;:subfolder};\n\t}\n\t\n\treturn undefined; //undefined is processed as option\n};\n\nGAS_Http_Handler.prototype.getSubfolder = function (){\n\tvar subfolder = this.wiki.getTiddlerText(GAS_SUBFOLDER);\n\n\treturn subfolder? subfolder.trim() : undefined;//undefined better than empty string\n};\n\nexports.GAS_Http_Handler = GAS_Http_Handler;\n\n})();&quot;,
             &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/modules/utils/GAS_Http_Handler.js&quot;,
             &quot;type&quot;: &quot;application/javascript&quot;,
             &quot;module-type&quot;: &quot;utils&quot;
@@ -5659,6 +5679,28 @@ Error message and password prompt
 <div created="20141127083633192" title="$:/plugins/danielo515/GASuploader/temp/uploading" type="text/vnd.tiddlywiki">
 <pre></pre>
 </div>
+<div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="" description="Browser sniffing for TiddlyWiki" list="readme" plugin-type="plugin" title="$:/plugins/tiddlywiki/browser-sniff" type="application/json" version="5.1.5-prerelease">
+<pre>{
+    &quot;tiddlers&quot;: {
+        &quot;$:/plugins/tiddlywiki/browser-sniff/sniff.js&quot;: {
+            &quot;text&quot;: &quot;/*\\\ntitle: $:/plugins/tiddlywiki/browser-sniff/sniff.js\ntype: application/javascript\nmodule-type: info\n\nInitialise $:/info/browser tiddlers\n\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\&quot;use strict\&quot;;\n\nexports.getInfoTiddlerFields = function() {\n\tvar mapBoolean = function(value) {return value ? \&quot;yes\&quot; : \&quot;no\&quot;;},\n\t\tinfoTiddlerFields = [];\n\t// Basics\n\tif($tw.browser) {\n\t\t// Mappings from tiddler titles (prefixed with \&quot;$:/info/browser/\&quot;) to bowser.browser property name\n\t\tvar bowser = require(\&quot;$:/plugins/tiddlywiki/browser-sniff/bowser/bowser.js\&quot;),\n\t\t\tmappings = [\n\t\t\t\t[\&quot;name\&quot;,\&quot;name\&quot;,\&quot;unknown\&quot;],\n\t\t\t\t[\&quot;version\&quot;,\&quot;version\&quot;],\n\t\t\t\t[\&quot;is/webkit\&quot;,\&quot;webkit\&quot;],\n\t\t\t\t[\&quot;is/gecko\&quot;,\&quot;gecko\&quot;],\n\t\t\t\t[\&quot;is/chrome\&quot;,\&quot;chrome\&quot;],\n\t\t\t\t[\&quot;is/firefox\&quot;,\&quot;firefox\&quot;],\n\t\t\t\t[\&quot;is/ios\&quot;,\&quot;ios\&quot;],\n\t\t\t\t[\&quot;is/iphone\&quot;,\&quot;iphone\&quot;],\n\t\t\t\t[\&quot;is/ipad\&quot;,\&quot;ipad\&quot;],\n\t\t\t\t[\&quot;is/ipod\&quot;,\&quot;ios\&quot;],\n\t\t\t\t[\&quot;is/opera\&quot;,\&quot;opera\&quot;],\n\t\t\t\t[\&quot;is/phantomjs\&quot;,\&quot;phantomjs\&quot;],\n\t\t\t\t[\&quot;is/safari\&quot;,\&quot;safari\&quot;],\n\t\t\t\t[\&quot;is/seamonkey\&quot;,\&quot;seamonkey\&quot;],\n\t\t\t\t[\&quot;is/blackberry\&quot;,\&quot;blackberry\&quot;],\n\t\t\t\t[\&quot;is/webos\&quot;,\&quot;webos\&quot;],\n\t\t\t\t[\&quot;is/silk\&quot;,\&quot;silk\&quot;],\n\t\t\t\t[\&quot;is/bada\&quot;,\&quot;bada\&quot;],\n\t\t\t\t[\&quot;is/tizen\&quot;,\&quot;tizen\&quot;],\n\t\t\t\t[\&quot;is/sailfish\&quot;,\&quot;sailfish\&quot;],\n\t\t\t\t[\&quot;is/android\&quot;,\&quot;android\&quot;],\n\t\t\t\t[\&quot;is/windowsphone\&quot;,\&quot;windowsphone\&quot;],\n\t\t\t\t[\&quot;is/firefoxos\&quot;,\&quot;firefoxos\&quot;]\n\t\t\t];\n\t\t$tw.utils.each(mappings,function(mapping) {\n\t\t\tvar value = bowser.browser[mapping[1]];\n\t\t\tif(value === undefined) {\n\t\t\t\tvalue = mapping[2];\n\t\t\t}\n\t\t\tif(value === undefined) {\n\t\t\t\tvalue = false;\n\t\t\t}\n\t\t\tif(typeof value === \&quot;boolean\&quot;) {\n\t\t\t\tvalue = mapBoolean(value);\n\t\t\t}\n\t\t\tinfoTiddlerFields.push({title: \&quot;$:/info/browser/\&quot; + mapping[0], text: value});\n\t\t});\n\t\t// Set $:/info/browser/name to the platform with some changes from Bowser\n\t\tvar platform = bowser.browser.name;\n\t\tif(\&quot;iPad iPhone iPod\&quot;.split(\&quot; \&quot;).indexOf(platform) !== -1) {\n\t\t\tplatform = \&quot;iOS\&quot;;\n\t\t}\n\t\tinfoTiddlerFields.push({title: \&quot;$:/info/browser/name\&quot;, text: platform});\n\t\t// Non-bowser settings for TiddlyFox and TiddlyDesktop\n\t\tvar hasTiddlyFox = !!document.getElementById(\&quot;tiddlyfox-message-box\&quot;), // Fails because message box is added after page load\n\t\t\tisTiddlyDesktop = false; // Can't detect it until we update TiddlyDesktop to have a distinct useragent string\n\t\t//infoTiddlerFields.push({title: \&quot;$:/info/browser/has/tiddlyfox\&quot;, text: mapBoolean(hasTiddlyFox)});\n\t\t//infoTiddlerFields.push({title: \&quot;$:/info/browser/is/tiddlydesktop\&quot;, text: mapBoolean(isTiddlyDesktop)});\n\t\tif(isTiddlyDesktop) {\n\t\t\tinfoTiddlerFields.push({title: \&quot;$:/info/browser/name\&quot;, text: \&quot;TiddlyDesktop\&quot;});\n\t\t}\n\t}\n\treturn infoTiddlerFields;\n};\n\n})();\n&quot;,
+            &quot;title&quot;: &quot;$:/plugins/tiddlywiki/browser-sniff/sniff.js&quot;,
+            &quot;type&quot;: &quot;application/javascript&quot;,
+            &quot;module-type&quot;: &quot;info&quot;
+        },
+        &quot;$:/plugins/tiddlywiki/browser-sniff/bowser/bowser.js&quot;: {
+            &quot;type&quot;: &quot;application/javascript&quot;,
+            &quot;title&quot;: &quot;$:/plugins/tiddlywiki/browser-sniff/bowser/bowser.js&quot;,
+            &quot;module-type&quot;: &quot;library&quot;,
+            &quot;text&quot;: &quot;/*!\n  * Bowser - a browser detector\n  * https://github.com/ded/bowser\n  * MIT License | (c) Dustin Diaz 2014\n  */\n\n!function (name, definition) {\n  if (typeof module != 'undefined' &amp;&amp; module.exports) module.exports['browser'] = definition()\n  else if (typeof define == 'function') define(definition)\n  else this[name] = definition()\n}('bowser', function () {\n  /**\n    * See useragents.js for examples of navigator.userAgent\n    */\n\n  var t = true\n\n  function detect(ua) {\n\n    function getFirstMatch(regex) {\n      var match = ua.match(regex);\n      return (match &amp;&amp; match.length &gt; 1 &amp;&amp; match[1]) || '';\n    }\n\n    var iosdevice = getFirstMatch(/(ipod|iphone|ipad)/i).toLowerCase()\n      , likeAndroid = /like android/i.test(ua)\n      , android = !likeAndroid &amp;&amp; /android/i.test(ua)\n      , versionIdentifier = getFirstMatch(/version\\/(\\d+(\\.\\d+)?)/i)\n      , tablet = /tablet/i.test(ua)\n      , mobile = !tablet &amp;&amp; /[^-]mobi/i.test(ua)\n      , result\n\n    if (/opera|opr/i.test(ua)) {\n      result = {\n        name: 'Opera'\n      , opera: t\n      , version: versionIdentifier || getFirstMatch(/(?:opera|opr)[\\s\\/](\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (/windows phone/i.test(ua)) {\n      result = {\n        name: 'Windows Phone'\n      , windowsphone: t\n      , msie: t\n      , version: getFirstMatch(/iemobile\\/(\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (/msie|trident/i.test(ua)) {\n      result = {\n        name: 'Internet Explorer'\n      , msie: t\n      , version: getFirstMatch(/(?:msie |rv:)(\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (/chrome|crios|crmo/i.test(ua)) {\n      result = {\n        name: 'Chrome'\n      , chrome: t\n      , version: getFirstMatch(/(?:chrome|crios|crmo)\\/(\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (iosdevice) {\n      result = {\n        name : iosdevice == 'iphone' ? 'iPhone' : iosdevice == 'ipad' ? 'iPad' : 'iPod'\n      }\n      // WTF: version is not part of user agent in web apps\n      if (versionIdentifier) {\n        result.version = versionIdentifier\n      }\n    }\n    else if (/sailfish/i.test(ua)) {\n      result = {\n        name: 'Sailfish'\n      , sailfish: t\n      , version: getFirstMatch(/sailfish\\s?browser\\/(\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (/seamonkey\\//i.test(ua)) {\n      result = {\n        name: 'SeaMonkey'\n      , seamonkey: t\n      , version: getFirstMatch(/seamonkey\\/(\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (/firefox|iceweasel/i.test(ua)) {\n      result = {\n        name: 'Firefox'\n      , firefox: t\n      , version: getFirstMatch(/(?:firefox|iceweasel)[ \\/](\\d+(\\.\\d+)?)/i)\n      }\n      if (/\\((mobile|tablet);[^\\)]*rv:[\\d\\.]+\\)/i.test(ua)) {\n        result.firefoxos = t\n      }\n    }\n    else if (/silk/i.test(ua)) {\n      result =  {\n        name: 'Amazon Silk'\n      , silk: t\n      , version : getFirstMatch(/silk\\/(\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (android) {\n      result = {\n        name: 'Android'\n      , version: versionIdentifier\n      }\n    }\n    else if (/phantom/i.test(ua)) {\n      result = {\n        name: 'PhantomJS'\n      , phantom: t\n      , version: getFirstMatch(/phantomjs\\/(\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (/blackberry|\\bbb\\d+/i.test(ua) || /rim\\stablet/i.test(ua)) {\n      result = {\n        name: 'BlackBerry'\n      , blackberry: t\n      , version: versionIdentifier || getFirstMatch(/blackberry[\\d]+\\/(\\d+(\\.\\d+)?)/i)\n      }\n    }\n    else if (/(web|hpw)os/i.test(ua)) {\n      result = {\n        name: 'WebOS'\n      , webos: t\n      , version: versionIdentifier || getFirstMatch(/w(?:eb)?osbrowser\\/(\\d+(\\.\\d+)?)/i)\n      };\n      /touchpad\\//i.test(ua) &amp;&amp; (result.touchpad = t)\n    }\n    else if (/bada/i.test(ua)) {\n      result = {\n        name: 'Bada'\n      , bada: t\n      , version: getFirstMatch(/dolfin\\/(\\d+(\\.\\d+)?)/i)\n      };\n    }\n    else if (/tizen/i.test(ua)) {\n      result = {\n        name: 'Tizen'\n      , tizen: t\n      , version: getFirstMatch(/(?:tizen\\s?)?browser\\/(\\d+(\\.\\d+)?)/i) || versionIdentifier\n      };\n    }\n    else if (/safari/i.test(ua)) {\n      result = {\n        name: 'Safari'\n      , safari: t\n      , version: versionIdentifier\n      }\n    }\n    else result = {}\n\n    // set webkit or gecko flag for browsers based on these engines\n    if (/(apple)?webkit/i.test(ua)) {\n      result.name = result.name || \&quot;Webkit\&quot;\n      result.webkit = t\n      if (!result.version &amp;&amp; versionIdentifier) {\n        result.version = versionIdentifier\n      }\n    } else if (!result.opera &amp;&amp; /gecko\\//i.test(ua)) {\n      result.name = result.name || \&quot;Gecko\&quot;\n      result.gecko = t\n      result.version = result.version || getFirstMatch(/gecko\\/(\\d+(\\.\\d+)?)/i)\n    }\n\n    // set OS flags for platforms that have multiple browsers\n    if (android || result.silk) {\n      result.android = t\n    } else if (iosdevice) {\n      result[iosdevice] = t\n      result.ios = t\n    }\n\n    // OS version extraction\n    var osVersion = '';\n    if (iosdevice) {\n      osVersion = getFirstMatch(/os (\\d+([_\\s]\\d+)*) like mac os x/i);\n      osVersion = osVersion.replace(/[_\\s]/g, '.');\n    } else if (android) {\n      osVersion = getFirstMatch(/android[ \\/-](\\d+(\\.\\d+)*)/i);\n    } else if (result.windowsphone) {\n      osVersion = getFirstMatch(/windows phone (?:os)?\\s?(\\d+(\\.\\d+)*)/i);\n    } else if (result.webos) {\n      osVersion = getFirstMatch(/(?:web|hpw)os\\/(\\d+(\\.\\d+)*)/i);\n    } else if (result.blackberry) {\n      osVersion = getFirstMatch(/rim\\stablet\\sos\\s(\\d+(\\.\\d+)*)/i);\n    } else if (result.bada) {\n      osVersion = getFirstMatch(/bada\\/(\\d+(\\.\\d+)*)/i);\n    } else if (result.tizen) {\n      osVersion = getFirstMatch(/tizen[\\/\\s](\\d+(\\.\\d+)*)/i);\n    }\n    if (osVersion) {\n      result.osversion = osVersion;\n    }\n\n    // device type extraction\n    var osMajorVersion = osVersion.split('.')[0];\n    if (tablet || iosdevice == 'ipad' || (android &amp;&amp; (osMajorVersion == 3 || (osMajorVersion == 4 &amp;&amp; !mobile))) || result.silk) {\n      result.tablet = t\n    } else if (mobile || iosdevice == 'iphone' || iosdevice == 'ipod' || android || result.blackberry || result.webos || result.bada) {\n      result.mobile = t\n    }\n\n    // Graded Browser Support\n    // http://developer.yahoo.com/yui/articles/gbs\n    if ((result.msie &amp;&amp; result.version &gt;= 10) ||\n        (result.chrome &amp;&amp; result.version &gt;= 20) ||\n        (result.firefox &amp;&amp; result.version &gt;= 20.0) ||\n        (result.safari &amp;&amp; result.version &gt;= 6) ||\n        (result.opera &amp;&amp; result.version &gt;= 10.0) ||\n        (result.ios &amp;&amp; result.osversion &amp;&amp; result.osversion.split(\&quot;.\&quot;)[0] &gt;= 6)\n        ) {\n      result.a = t;\n    }\n    else if ((result.msie &amp;&amp; result.version &lt; 10) ||\n        (result.chrome &amp;&amp; result.version &lt; 20) ||\n        (result.firefox &amp;&amp; result.version &lt; 20.0) ||\n        (result.safari &amp;&amp; result.version &lt; 6) ||\n        (result.opera &amp;&amp; result.version &lt; 10.0) ||\n        (result.ios &amp;&amp; result.osversion &amp;&amp; result.osversion.split(\&quot;.\&quot;)[0] &lt; 6)\n        ) {\n      result.c = t\n    } else result.x = t\n\n    return result\n  }\n\n  var bowser = detect(typeof navigator !== 'undefined' ? navigator.userAgent : '')\n\n\n  /*\n   * Set our detect method to the main bowser object so we can\n   * reuse it to test other user agents.\n   * This is needed to implement future tests.\n   */\n  bowser._detect = detect;\n\n  return bowser\n});\n&quot;
+        },
+        &quot;$:/plugins/tiddlywiki/browser-sniff/readme&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/tiddlywiki/browser-sniff/readme&quot;,
+            &quot;text&quot;: &quot;This plugin adds a number of `$:/info/` tiddlers containing information about the current browser.\n\n! Information Tiddlers\n\n|!Title |!Description |\n|[[$:/info/browser/is/android]] |Running on Android? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/bada]] |Running on Bada? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/blackberry]] |Running on ~BlackBerry? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/chrome]] |Running on Chrome? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/firefox]] |Running on Firefox? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/firefoxos]] |Running on Firefox OS? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/gecko]] |Running on Gecko? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/ios]] |Running on iOS (ie an iPhone, iPad or iPod)? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/ipad]] |Running on iPad? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/iphone]] |Running on iPhone? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/ipod]] |Running on iPod? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/opera]] |Running on Opera? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/phantomjs]] |Running on ~PhantomJS? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/safari]] |Running on Safari? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/sailfish]] |Running on Sailfish? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/seamonkey]] |Running on Sea Monkey? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/silk]] |Running on Amazon's Silk? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/tizen]] |Running on Tizen? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/webkit]] |Running on ~WebKit? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/webos]] |Running on ~WebOS? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/is/windowsphone]] |Running on Windows Phone? (\&quot;yes\&quot; or \&quot;no\&quot;)  |\n|[[$:/info/browser/name]] |Platform name (see below) |\n|[[$:/info/browser/version]] |Browser version |\n\nThe browser information is obtained with [[Bowser, a browser detector library from Dustin Diaz|https://github.com/ded/bowser/]]. Possible browser names include:\n\n* ''\&quot;Amazon Silk\&quot;''\n* ''\&quot;Android\&quot;''\n* ''\&quot;Bada\&quot;''\n* ''\&quot;~BlackBerry\&quot;''\n* ''\&quot;Chrome\&quot;''\n* ''\&quot;Firefox\&quot;''\n* ''\&quot;Internet Explorer\&quot;''\n* ''\&quot;iOS\&quot;''\n* ''\&quot;Opera\&quot;''\n* ''\&quot;~PhantomJS\&quot;''\n* ''\&quot;Safari\&quot;''\n* ''\&quot;Sailfish\&quot;''\n* ''\&quot;~SeaMonkey\&quot;''\n* ''\&quot;~TiddlyDesktop\&quot;''\n* ''\&quot;Tizen\&quot;''\n* ''\&quot;~WebOS\&quot;''\n* ''\&quot;Windows Phone\&quot;''\n\nNote that Bowser returns \&quot;iPhone\&quot;, \&quot;iPad\&quot; and \&quot;iPod\&quot; as distinct values for the name of the current browser. TiddlyWiki converts all three distinct values into \&quot;iOS\&quot; before copying to [[$:/info/browser/name]].\n&quot;
+        }
+    }
+}</pre>
+</div>
 <div author="JeremyRuston" dependents="" description="Codemirror plugin" list="readme" plugin-type="plugin" title="$:/plugins/tiddlywiki/codemirror" type="application/json" version="5.1.5-prerelease">
 <pre>{
     &quot;tiddlers&quot;: {
@@ -5772,6 +5814,22 @@ Error message and password prompt
     }
 }</pre>
 </div>
+<div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="" description="Google Analytics plugin for TiddlyWiki5" list="readme" plugin-type="plugin" title="$:/plugins/tiddlywiki/googleanalytics" type="application/json" version="5.1.5-prerelease">
+<pre>{
+    &quot;tiddlers&quot;: {
+        &quot;$:/plugins/tiddlywiki/googleanalytics/googleanalytics.js&quot;: {
+            &quot;text&quot;: &quot;/*\\\ntitle: $:/plugins/tiddlywiki/googleanalytics/googleanalytics.js\ntype: application/javascript\nmodule-type: startup\n\nRuns Google Analytics with the account number in the tiddler `$:/GoogleAnalyticsAccount` and the domain name in `$:/GoogleAnalyticsDomain`\n\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\&quot;use strict\&quot;;\n\n// Export name and synchronous status\nexports.name = \&quot;google-analytics\&quot;;\nexports.platforms = [\&quot;browser\&quot;];\nexports.synchronous = true;\n\nvar GOOGLE_ANALYTICS_ACCOUNT = \&quot;$:/GoogleAnalyticsAccount\&quot;,\n\tGOOGLE_ANALYTICS_DOMAIN = \&quot;$:/GoogleAnalyticsDomain\&quot;;\n\nexports.startup = function() {\n\twindow._gaq = window._gaq || [];\n\t_gaq.push([\&quot;_setAccount\&quot;, $tw.wiki.getTiddlerText(GOOGLE_ANALYTICS_ACCOUNT)]);\n\t_gaq.push([\&quot;_setDomainName\&quot;, $tw.wiki.getTiddlerText(GOOGLE_ANALYTICS_DOMAIN)]);\n\t_gaq.push([\&quot;_trackPageview\&quot;]);\n\tvar ga = document.createElement(\&quot;script\&quot;);\n\tga.type = \&quot;text/javascript\&quot;;\n\tga.async = true;\n\tga.src = (\&quot;https:\&quot; == document.location.protocol ? \&quot;https://ssl\&quot; : \&quot;http://www\&quot;) + \&quot;.google-analytics.com/ga.js\&quot;;\n\tdocument.body.appendChild(ga);\n};\n\n})();\n&quot;,
+            &quot;title&quot;: &quot;$:/plugins/tiddlywiki/googleanalytics/googleanalytics.js&quot;,
+            &quot;type&quot;: &quot;application/javascript&quot;,
+            &quot;module-type&quot;: &quot;startup&quot;
+        },
+        &quot;$:/plugins/tiddlywiki/googleanalytics/readme&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/tiddlywiki/googleanalytics/readme&quot;,
+            &quot;text&quot;: &quot;This plugin enables you to use Google Analytics to track access to your online TiddlyWiki document. These instructions assume you are using TiddlySpot to publish your wiki.\n\n# Go to the Google Analytics website: http://www.google.com/analytics/\n# Click the ''Access Google Analytics'' button and follow instructions to set up your account\n# Enter the name of your TiddlySpot domain, for example \&quot;mysite.tiddlyspot.com\&quot; \n# You will be given your own Tracking ID for this domain\n# Go to http://tiddlywiki.com -- open the More/System tab and drag the links to these three tiddlers across to a local copy of your site:\n#* [[$:/GoogleAnalyticsDomain]]\n#* [[$:/GoogleAnalyticsAccount]]\n#* [[$:/plugins/tiddlywiki/googleanalytics]]\n# Edit the first two of these tiddlers to reflect your Domain and Tracking ID\n# Upload the new version to TiddlySpot or other web host\n# Return to your Google Analytics page to check that your site is being tracked\n&quot;
+        }
+    }
+}</pre>
+</div>
 <div author="JoaoBolila" dependents="" description="Highlight.js plugin for TiddlyWiki5" list="license" plugin-type="plugin" title="$:/plugins/tiddlywiki/highlight" type="application/json" version="5.1.5-prerelease">
 <pre>{
     &quot;tiddlers&quot;: {
@@ -5812,19 +5870,114 @@ Error message and password prompt
 <div created="20141122121214741" modified="20141125081824840" title="$:/SiteTitle" type="text/vnd.tiddlywiki">
 <pre>TW5 Documentation</pre>
 </div>
-<div list="HelloThere WorkFlow [[How does this work?]] [[Configuring your session]]" title="$:/StoryList">
+<div list="$:/AdvancedSearch $:/GoogleAnalyticsDomain HelloThere WorkFlow [[How does this work?]] [[Configuring your session]]" title="$:/StoryList">
 <pre></pre>
+</div>
+<div created="20141127145351393" modified="20141127145352063" title="$:/temp/advancedsearch">
+<pre>google</pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
 <pre>{
     &quot;tiddlers&quot;: {
         &quot;$:/info/browser&quot;: {
             &quot;title&quot;: &quot;$:/info/browser&quot;,
-            &quot;text&quot;: &quot;no&quot;
+            &quot;text&quot;: &quot;yes&quot;
         },
         &quot;$:/info/node&quot;: {
             &quot;title&quot;: &quot;$:/info/node&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/name&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/name&quot;,
+            &quot;text&quot;: &quot;Chrome&quot;
+        },
+        &quot;$:/info/browser/version&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/version&quot;,
+            &quot;text&quot;: &quot;37.0&quot;
+        },
+        &quot;$:/info/browser/is/webkit&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/webkit&quot;,
             &quot;text&quot;: &quot;yes&quot;
+        },
+        &quot;$:/info/browser/is/gecko&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/gecko&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/chrome&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/chrome&quot;,
+            &quot;text&quot;: &quot;yes&quot;
+        },
+        &quot;$:/info/browser/is/firefox&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/firefox&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/ios&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/ios&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/iphone&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/iphone&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/ipad&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/ipad&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/ipod&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/ipod&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/opera&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/opera&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/phantomjs&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/phantomjs&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/safari&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/safari&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/seamonkey&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/seamonkey&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/blackberry&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/blackberry&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/webos&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/webos&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/silk&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/silk&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/bada&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/bada&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/tizen&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/tizen&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/sailfish&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/sailfish&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/android&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/android&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/windowsphone&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/windowsphone&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
+        &quot;$:/info/browser/is/firefoxos&quot;: {
+            &quot;title&quot;: &quot;$:/info/browser/is/firefoxos&quot;,
+            &quot;text&quot;: &quot;no&quot;
         }
     }
 }</pre>
