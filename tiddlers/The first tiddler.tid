@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 created: NaNNaNNaNNaNNaNNaNNaN
 gas_id: 0B-USg0ow4LCZTUFFLWM2OGZlNzRkLTFlNDMtNDk5Ni04NTc4LWI2NzcwNWJlNWNlZQ
 gas_uploaded: 2014-11-27T08:28:41.268Z
@@ -5,4 +6,13 @@ modified: NaNNaNNaNNaNNaNNaNNaN
 title: The first tiddler
 type: text/vnd.tiddlywiki
 
+=======
+created: NaNNaNNaNNaNNaNNaNNaN
+gas_id: 0B-USg0ow4LCZTUFFLWM2OGZlNzRkLTFlNDMtNDk5Ni04NTc4LWI2NzcwNWJlNWNlZQ
+gas_uploaded: 2014-11-27T08:28:41.268Z
+modified: NaNNaNNaNNaNNaNNaNNaN
+title: The first tiddler
+type: text/vnd.tiddlywiki
+
+>>>>>>> 9d062b8ac50904a20b389df6b1069b36c98d0310
 Hello world community!

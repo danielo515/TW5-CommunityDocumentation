@@ -1,5 +1,5 @@
 created: 20141127074504606
-modified: 20141127081955284
+modified: 20141127103001701
 title: Configuring your session
 type: text/vnd.tiddlywiki
 
@@ -8,7 +8,7 @@ If you are ready to start  maybe you want to configure some parameters for your 
 !!Username
 The tiddlers will be saved with your username as creator.
 
-''Username for signing edits:'' <$edit-text  tag="input" tiddler="$:/status/UserName"/>
+''Username for signing edits:'' <$edit-text  tag="input" tiddler="$:/status/UserName" default="Anonymous"/>
 
 !!Subfolder
 

@@ -1,6 +1,7 @@
 {
 	"plugins": [
           "tiddlywiki/filesystem",
+		  "tiddlywiki/tiddlyweb",
           "tiddlywiki/codemirror",
           "tiddlywiki/highlight"
 	],
@@ -9,7 +10,7 @@
           "tiddlywiki/snowwhite"
     ],
 	"includeWikis": [
-        {"path": "../gasUploaderPluginwiki", "read-only": true}
+        {"path": "../core", "read-only": true}
     ],
 	"build": {
 		"index": [
