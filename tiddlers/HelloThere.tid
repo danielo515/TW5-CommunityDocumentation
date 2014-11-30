@@ -1,9 +1,9 @@
 created: 20140901120057909
-modified: 20141127080359212
+modified: 20141130140354977
 title: HelloThere
 type: text/vnd.tiddlywiki
 
-Welcome to the Community Documentation project for [[tiddlywiki5|http://tiddlywiki.com]]. This is a public place where anyone that want to contribute to tiddlywiki documentation can add content. 
+Welcome to the TiddlyDrive version for Community. This is in beta stage, so use it with caution. The idea of the community edition is to use it as a tool for documenting  [[tiddlywiki5|http://tiddlywiki.com]]. This is ''not official in any way'', is just an idea that I got and I wanted to try it out. If you thing this can be usefult for you to contribute, don't hesitate to use it!
 
 If you know tiddliwiki you know how to use this already. Just ''create a new tiddler'', write whatever you want to share with the community and ''click the upload button'' ({{$:/plugins/danielo515/GASuploader/ui/icons/upload}}) in the top-right of the tiddler. Easy and fast. No ''Node.js'', custom [[tiddlyspot|http://www.tiddlyspot.com]], html file on ''dropbox'' or anything else required.
 

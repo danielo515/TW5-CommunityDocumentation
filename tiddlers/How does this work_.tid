@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 created: 20141127082023454
-modified: 20141127082710660
+modified: 20141130135240953
 title: How does this work?
 type: text/vnd.tiddlywiki
 
@@ -20,11 +19,6 @@ And here is a list of ''planned and future features'':
 * Private tiddler store.
 * Control panel for server.
 * Save the full wiki html file to the server
-=======
-created: 20141127082023454
-modified: 20141127082710660
-title: How does this work?
-type: text/vnd.tiddlywiki
 
 This is an special edition of a plugin that I'm currently developing. You can check it on my [[github repository|https://github.com/danielo515/TW5-GASUploader]]. This are some of the features that are currently available:
 
@@ -42,5 +36,4 @@ And here is a list of ''planned and future features'':
 * Private tiddler store.
 * Control panel for server.
 * Save the full wiki html file to the server
->>>>>>> 9d062b8ac50904a20b389df6b1069b36c98d0310
 * 100% Google drive hosting
