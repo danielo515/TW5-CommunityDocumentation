@@ -8,3 +8,4 @@ Welcome to the TiddlyDrive version for Community. This is in beta stage, so use 
 If you know tiddliwiki you know how to use this already. Just ''create a new tiddler'', write whatever you want to share with the community and ''click the upload button'' ({{$:/plugins/danielo515/GASuploader/ui/icons/upload}}) in the top-right of the tiddler. Easy and fast. No ''Node.js'', custom [[tiddlyspot|http://www.tiddlyspot.com]], html file on ''dropbox'' or anything else required.
 
 If you want more advanced options visit the [[control panel|$:/plugins/danielo515/GASuploader/ui/control-panel]].
+
