@@ -13,7 +13,7 @@
     ],
 	"build": {
 		"index": [
-			"--rendertiddler","$:/plugins/tiddlywiki/tiddlyweb/save/offline","index.html","text/plain"],
+			"--rendertiddler","$:/plugins/tiddlywiki/tiddlyweb/save/offline","../index.html","text/plain"],
 		"readme": [
 			"--rendertiddler","HelloThere","../readme.md","text/html"]
 	}
