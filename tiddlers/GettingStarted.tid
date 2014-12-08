@@ -1,0 +1,18 @@
+created: NaNNaNNaNNaNNaNNaNNaN
+creator: Tobias Beer
+gas_id: 0B-USg0ow4LCZTUFFLTkyMjUzZDE5LTFlYWUtNDFiYS04ZGI0LWUxNWEzOTA4MGNlOQ
+gas_uploaded: 2014-12-04T11:01:56.943Z
+modified: 20141208085635361
+modifier: Tobias Beer
+title: GettingStarted
+type: text/vnd.tiddlywiki
+
+Ready to start? Take a moment to configure your session:
+
+; Username
+: <$edit-text  tag="input" tiddler="$:/status/UserName" default="Anonymous"/>
+: tiddlers will be saved with your username when you create or edit tiddlers:
+; Folder
+: <$edit-text tiddler="$:/plugins/danielo515/GASuploader/config/subfolder" tag="input" default="" placeholder="subfolder name"/>
+: You can specify a subfolder to which tiddlers are going to be uploaded.
+:By default, all tiddlers are saved under the main folder

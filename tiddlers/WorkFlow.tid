@@ -1,5 +1,5 @@
 created: 20141127075808668
-modified: 20141127081925846
+modified: 20141208090047841
 title: WorkFlow
 type: text/vnd.tiddlywiki
 
@@ -9,7 +9,7 @@ The very basic workflow is as follows:
 # You create a tiddler //(or more than one)// or edit an existing one you want to improve
 # Click the upload button
 # The tiddler is uploaded to this public [[googleDrive folder|https://drive.google.com/folderview?id=0B-USg0ow4LCZREVYcjJpYzhOcFU&usp=sharing]]
-# The tiddler is ''not added to the main wiki immediately''. An administrator should review it and add to this wiki as part of the main collection and maybe make a pull request to the official [[tiddliwiki repository|https://github.com/Jermolene/TiddlyWiki5]].
+# The tiddler is ''not added to the main wiki immediately''. Instead it is added to the //server tiddlers collection// that is pulled from the server on startup.
 
 !!Offline
 It is awesome, I know, but you can download this wiki to your local drive, or your phone, make all the editions you want and upload them later. This way you can keep an offline copy of your contributions.
