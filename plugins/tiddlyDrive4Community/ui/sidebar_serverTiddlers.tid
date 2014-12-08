@@ -1,0 +1,16 @@
+caption: Server TOC
+list-before: $:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/session
+title: $:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/serverTiddlers
+type: text/vnd.tiddlywiki
+
+This tiddlers are on the server. Click on any to open and download it
+
+<$list filter="[[$:/temp/GASuploader/Servertiddlers]plugintiddlers[]]" variable="serverTitle">
+<$list filter="[<serverTitle>!is[tiddler]]">
+<div class="tc-menu-list-item">
+<$button message="pm-GAS-GET-TiddlerByTitle" class="tc-btn-invisible tc-btn-link" param=<<serverTitle>>>
+<$action-navigate $to=<<serverTitle>>/>
+<$text text=<<serverTitle>>/>
+</$button>
+</div>
+</$list>

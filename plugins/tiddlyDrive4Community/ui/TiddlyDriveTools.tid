@@ -1,0 +1,10 @@
+title: $:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/TiddlyDriveTools
+caption: TD Tools
+list-before: $:/core/ui/SideBar/Open
+tags: $:/tags/SideBar
+type: text/vnd.tiddlywiki
+
+{{$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/session}}
+
+
+{{$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/serverTiddlers}}

@@ -1,0 +1,10 @@
+title: $:/plugins/danielo515/TiddlyDrive/community/ui/styles/basic.css
+tags: $:/tags/Stylesheet
+
+.tc-btn-link:hover{
+	text-decoration: underline;
+}
+
+.tc-sidebar-lists .tc-btn-link {
+color: #999;
+}
