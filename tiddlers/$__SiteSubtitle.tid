@@ -3,4 +3,8 @@ modified: 20141130135134503
 title: $:/SiteSubtitle
 type: text/vnd.tiddlywiki
 
-everyone can contribute
+Signing as <$view tiddler="$:/status/UserName">
+@@color:red;
+Anonymous
+@@
+</$view>
