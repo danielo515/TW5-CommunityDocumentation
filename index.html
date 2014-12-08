@@ -43,7 +43,11 @@ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF S
 DAMAGE.
 " />
 <link id="faviconLink" rel="shortcut icon" href="favicon.ico">
-<title>TiddlyDrive4Community — everyone can contribute</title>
+<title>TiddlyDrive4Community — Signing as 
+
+Anonymous
+
+</title>
 <!--~~ This is a Tiddlywiki file. The points of interest in the file are marked with this pattern ~~--><!--~~ Raw markup ~~-->
 
 </head>
@@ -131,6 +135,8 @@ Error message and password prompt
 
 <li>$:/core</li>
 
+<li>$:/core/ui/SideBarLists</li>
+
 <li>$:/DefaultTiddlers</li>
 
 <li>$:/favicon.ico</li>
@@ -145,11 +151,13 @@ Error message and password prompt
 
 <li>$:/plugins/danielo515/GASuploader</li>
 
-<li>$:/plugins/danielo515/GASuploader/config</li>
+<li>$:/plugins/danielo515/GASuploader/config/useImporter</li>
 
 <li>$:/plugins/danielo515/GASuploader/language/Notifications/Processing/Tiddler</li>
 
 <li>$:/plugins/danielo515/GASuploader/temp/uploaded</li>
+
+<li>$:/plugins/danielo515/TiddlyDrive/community</li>
 
 <li>$:/plugins/tiddlywiki/highlight</li>
 
@@ -170,6 +178,8 @@ Error message and password prompt
 <li>Configuring your session</li>
 
 <li>Features roadmap</li>
+
+<li>GettingStarted</li>
 
 <li>HelloThere</li>
 
@@ -5409,11 +5419,52 @@ no</pre>
     }
 }</pre>
 </div>
-<div created="20140901120057909" modified="20141127082016093" title="$:/DefaultTiddlers" type="text/vnd.tiddlywiki" revision="0" bag="default">
+<div created="20141208104231703" modified="20141208104250296" title="$:/core/ui/SideBarLists" type="text/vnd.tiddlywiki" revision="0" bag="default">
+<pre>&lt;div class=&quot;tc-sidebar-lists&quot;&gt;
+
+&lt;div class=&quot;tc-search&quot;&gt;
+&lt;$edit-text tiddler=&quot;$:/temp/search&quot; type=&quot;search&quot; tag=&quot;input&quot;/&gt;
+&lt;$reveal state=&quot;$:/temp/search&quot; type=&quot;nomatch&quot; text=&quot;&quot;&gt;
+&lt;$button tooltip={{$:/language/Buttons/AdvancedSearch/Hint}} aria-label={{$:/language/Buttons/AdvancedSearch/Caption}} class=&quot;tc-btn-invisible&quot;&gt;
+&lt;$action-setfield $tiddler=&quot;$:/temp/advancedsearch&quot; text={{$:/temp/search}}/&gt;
+&lt;$action-setfield $tiddler=&quot;$:/temp/search&quot; text=&quot;&quot;/&gt;
+&lt;$action-navigate $to=&quot;$:/AdvancedSearch&quot;/&gt;
+{{$:/core/images/advanced-search-button}}
+&lt;/$button&gt;
+&lt;$button class=&quot;tc-btn-invisible&quot;&gt;
+&lt;$action-setfield $tiddler=&quot;$:/temp/search&quot; text=&quot;&quot; /&gt;
+{{$:/core/images/close-button}}
+&lt;/$button&gt;
+&lt;/$reveal&gt;
+&lt;$reveal state=&quot;$:/temp/search&quot; type=&quot;match&quot; text=&quot;&quot;&gt;
+&lt;$button to=&quot;$:/AdvancedSearch&quot; tooltip={{$:/language/Buttons/AdvancedSearch/Hint}} aria-label={{$:/language/Buttons/AdvancedSearch/Caption}} class=&quot;tc-btn-invisible&quot;&gt;
+{{$:/core/images/advanced-search-button}}
+&lt;/$button&gt;
+&lt;/$reveal&gt;
+&lt;/div&gt;
+
+&lt;$reveal state=&quot;$:/temp/search&quot; type=&quot;nomatch&quot; text=&quot;&quot;&gt;
+
+&lt;$set name=&quot;searchTiddler&quot; value=&quot;$:/temp/search&quot;&gt;
+{{$:/core/ui/SearchResults}}
+&lt;/$set&gt;
+
+&lt;/$reveal&gt;
+
+&lt;$reveal state=&quot;$:/temp/search&quot; type=&quot;match&quot; text=&quot;&quot;&gt;
+
+&lt;&lt;tabs &quot;[all[shadows+tiddlers]tag[$:/tags/SideBar]!has[draft.of]]&quot; &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/TiddlyDriveTools&quot; &quot;$:/state/tab/sidebar&quot;&gt;&gt;
+
+&lt;/$reveal&gt;
+
+&lt;/div&gt;
+</pre>
+</div>
+<div created="20140901120057909" modified="20141208085727473" title="$:/DefaultTiddlers" type="text/vnd.tiddlywiki" revision="0" bag="default">
 <pre>HelloThere
 [[WorkFlow]]
 [[How does this work?]]
-[[Configuring your session]]</pre>
+GettingStarted</pre>
 </div>
 <div title="$:/favicon.ico" type="image/x-icon" revision="0" bag="default">
 <pre>AAABAAIAEBAAAAEAIAAoBQAAJgAAACAgAAABACAAKBQAAE4FAAAoAAAAEAAAACAAAAABACAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANVwRyvZclKP2HJS1dlyUvPZclLz2HJS1dlyUo/VcEcrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqioqBtdxUJTegWT94pJ4/+emkf/01Mr/3Hpb/9t1Vf/oppL/+OTe/vDHvMeqKioGAAAAAAAAAAAAAAAAqioqBtlyUr3cfV7/+u/r//Xb0v/57ej/5JZ8/9t1Vf/bdVX/+/Tx//rw7P/bdlb/2XJSvaoqKgYAAAAAAAAAANdxUJTbdVX/7Lal////////////6aya/9t1Vf/bdVX/23VV//nr5v/xyb3/23VV/9t1Vf/XcVCUAAAAANVwRyvadFT923VV/+SWff///////////+6/r//bd1f/3oJm/+CIbP/++/v/89LI/9t1Vf/bdVX/2nRU/dVwRyvZclKP23VV/9t1Vf/bdVX/9NbL///////+/Pz//v7+///////////////////////01Mr/3Hlb/9t1Vf/ZclKP2HJS1dt1Vf/bdVX/3oFi//v08f////////////////////////////////////////////LNw//ln4j/2HJS1dlyUvPklnz/7Lel//LLv////////////////////////////////////////////////////////fv6/9yFZvTruKb48ci7/+msmv/stqX/+OPc//////////////////318//99vP//fr5//vy7//////////////////lpZH37b+v6tt1Vf/bdVX/23VV/9t1Vf/hjnT/5JZ+/9+Faf/bdVX/23VV/9t1Vf/ik3r/////////////////7Lin5+qxn7HbdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/3Hlb//fi3P/ilHz/4Yxy/+y4qLbVcEcr2nRU/dt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9p0VP3VcEcrAAAAANdxUJTbdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/XcVCUAAAAAAAAAACqKioG2XJSvdt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/ZclK9qioqBgAAAAAAAAAAAAAAAKoqKgbXcVCU2nRU/dt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9p0VP3XcVCUqioqBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANVwRyvZclKP2HJS1dlyUvPZclLz2HJS1dlyUo/VcEcrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAIAAAAEAAAAABACAAAAAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKoqKgbXb09H2XJQldhyUr/YdFPZ2XJS89lyUvPYdFPZ2HJSv9lyUJXXb09HqioqBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMlqShjZc1GW2HJT8dt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/YclPx2XNRlslqShgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJFIJAfZc1KC2HJT9Nt1Vf/bdVX/23VV/9t1Vf/fhmr/6q2b/+mtmv/ceFr/23VV/9t1Vf/bdVX/23VV/9t1Vf/qsJ3//PPx/v38+/rz7+tBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADJakoY2XJTx9t1Vf/bdVX/6aya//HIvP/moIv/5qGM//35+P///////////+GPdf/bdVX/23VV/9t1Vf/xxrn/+vDs//79/f//////89LI/9p3V8jJakoYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzW5ILtlyUuPbdVX/23VV/+6/r///////8MS2//LNwv/+/Pz//v7+//PSyP/moIr/23VV/9t1Vf/bdVX/23VV//nq5f////////////z39f/cfV7/23VV/9lyUuPXcUktAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMlqShjZclLj23VV/9t1Vf/kln7////////////018/////////////qr5v/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/+Obf////////////8sq9/9t1Vf/bdVX/23VV/9lyUuPJakoYAAAAAAAAAAAAAAAAAAAAAAAAAACRSCQH2XJTx9t1Vf/bdVX/23VV//bf2P//////////////////////+erl/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/129P////////////lnof/23VV/9t1Vf/bdVX/23VV/9lyU8eRSCQHAAAAAAAAAAAAAAAAAAAAANlzUoLbdVX/23VV/9t1Vf/egmT////////////////////////////23NT/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV//PSx////////////9+Ga//bdVX/23VV/9t1Vf/bdVX/23VV/9lzUoIAAAAAAAAAAAAAAADJakoY2HJT9Nt1Vf/bdVX/23VV/9t1Vf/23tX///////////////////////vz8f/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/+u7q////////////3H5f/9t1Vf/bdVX/23VV/9t1Vf/bdVX/2HJT9MlqShgAAAAAAAAAANlzUZbbdVX/23VV/9t1Vf/bdVX/23VV/+GNc//+/f3//////////////////////+GReP/beFn/4Ilu/+KTev/lmoL/4pJ5/+ahjP/////////////////uwrX/23ZW/9t1Vf/bdVX/23VV/9t1Vf/bdVX/2XNRlgAAAACqKioG2HJT8dt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV//LNwf///////////////////////Pf1//79/f/////////////////////////////////////////////////339j/4Idr/9t1Vf/bdVX/23VV/9t1Vf/YclPxqioqBtdvT0fbdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/4Yxy///////////////////////////////////////////////////////////////////////////////////////99vT/4Y91/9t1Vf/bdVX/23VV/9t1Vf/Xb09H2XJQldt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t2Vv/z0sj////////////////////////////////////////////////////////////////////////////////////////////23tX/23hZ/9t4Wf/bdVX/23VV/9lyUJXYclK/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/6KmV//////////////////////////////////////////////////////////////////////////////////////////////////79/f/78ez//Pf1/+Wag//bdVX/2HJSv9h0U9nbdVX/23VV/9t1Vf/bdVX/3H1e/9t4Wf/xxrn//////////////////////////////////////////////////////////////////////////////////////////////////////////////////fTy/9x/YP/YdFPZ2XJS89t1Vf/moYz/9drQ//36+f///////v39//36+f//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////67Oh/9lzUvLZdFXz89LH///////79PH/9t7V//Xb0//56+f//v39///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////0187/2XJS8+u8rOv78vD/5Z6G/9t1Vf/bdVX/23VV/9t1Vf/ceVv/5Z6H//ru6P/////////////////////////////////68O3/9+Ha//nn4//68O3//Pf1//vy8P/229T/+u/r//////////////////////////////////jm3//YdFPZ+u/r9uWagv/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/3Hlb/+WfiP/uva7/8MW4/+6/r//nppH/34Zq/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/uwLH/////////////////////////////////+u7o/9hyUr/89vL023ZW/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/+emkf/////////////////////////////////99PL/2XJQlfvz8tjbdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/4Idr////////////8ci8/+qsmP/ik3r/7Lal//np4//psJ9r/Pj4dNx4WvHbdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/8s3B/+/GuP/bdVX/23VV/9t1Vf/bdVX/2HNU8f/s7DcAAAAA2XNRltt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/Zc1GWAAAAAAAAAADJakoY2HJT9Nt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/2HJT9MlqShgAAAAAAAAAAAAAAADZc1KC23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/Zc1KCAAAAAAAAAAAAAAAAAAAAAJFIJAfZclPH23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/2XJTx5FIJAcAAAAAAAAAAAAAAAAAAAAAAAAAAMlqShjZclLj23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9lyUuPJakoYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM1uSC7ZclLj23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/ZclLj13FJLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMlqShjZclPH23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/2XJTx8lqShgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJFIJAfZc1KC2HJT9Nt1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/2HJT9NlzUoKRSCQHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADJakoY2XNRlthyU/HbdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/23VV/9t1Vf/bdVX/2HJT8dlzUZbJakoYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqioqBtdvT0fZclCV2HJSv9h0U9nZclLz2XJS89h0U9nYclK/2XJQlddvT0eqKioGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</pre>
@@ -5422,7 +5473,7 @@ no</pre>
 <pre>UA-57170401-1</pre>
 </div>
 <div creator="Daniel Rodriguez" title="$:/GoogleAnalyticsDomain" revision="0" bag="default">
-<pre>danielo515.github.io/TW5-CommunityDocumentation</pre>
+<pre>danielo515.github.io/TiddlyDrive4Community</pre>
 </div>
 <div title="$:/isEncrypted" revision="0" bag="default">
 <pre>no</pre>
@@ -5472,6 +5523,10 @@ no</pre>
             &quot;type&quot;: &quot;text/vnd.tiddlywiki&quot;,
             &quot;text&quot;: &quot;Succesfully uploaded {{$:/plugins/danielo515/GASuploader/temp/uploaded}}&quot;
         },
+        &quot;$:/plugins/danielo515/GASuploader/language/status/serverTiddler&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/language/status/serverTiddler&quot;,
+            &quot;text&quot;: &quot;This tiddler is on the server.\nPlease wait until it gets downloaded.\n{{$:/plugins/danielo515/GASuploader/ui/icons/process_bar}}\n&quot;
+        },
         &quot;$:/plugins/danielo515/GASuploader/language/Buttons/Caption/upload&quot;: {
             &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/language/Buttons/Caption/upload&quot;,
             &quot;text&quot;: &quot;Upload to drive&quot;
@@ -5487,7 +5542,7 @@ no</pre>
             &quot;module-type&quot;: &quot;library&quot;
         },
         &quot;$:/plugins/danielo515/GASuploader/lib/utils.js&quot;: {
-            &quot;text&quot;: &quot;/*\\\r\ntitle: $:/plugins/danielo515/GASuploader/lib/utils.js\r\ntype: application/javascript\r\nmodule-type: library\r\n\r\nHelper function useful for plugin global scope\r\n\r\n\\*/\r\n\r\nfunction utils(){\r\nvar GAS_URL = \&quot;$:/plugins/danielo515/GASuploader/config/script_url\&quot;;\r\nvar configs = {\r\n\tserver_list: \&quot;$:/temp/GAS/list_from_server\&quot;,\r\n\timport_tiddler: \&quot;$:/Import\&quot;,\r\n\tserver_communication_error: \&quot;Something went wrong communicating with the server\&quot;,\r\n\tfolder_listed: \&quot;Succesfully list folder\&quot;\r\n};\r\n/* @action the instruction to send to the server\r\n   @options hasmap of options in the form of { name:value }*/\r\nvar getURL = function (action,options){\r\n\tif(action){ //action on url required\r\n\t\tvar url = [$tw.wiki.getTiddlerText(GAS_URL),\&quot;?action=\&quot;,action];\r\n\t\tif(options){ //if there are options push those options into the url\r\n\t\t\t$tw.utils.each(options,function(value,name){\r\n\t\t\t\turl.push(\&quot;&amp;\&quot;);url.push(name);url.push(\&quot;=\&quot;);url.push(value);\r\n\t\t\t});\r\n\t\t}\r\n\t\t\treturn url.join(\&quot;\&quot;);\r\n\t}\r\n\r\n\treturn $tw.wiki.getTiddlerText(GAS_URL);\r\n};\r\n\r\nvar popFromTiddlerList = function(title,element){\r\n\tvar tiddler=$tw.wiki.getTiddler(title); \r\n\tvar list = tiddler ? tiddler.fields.list : [];\r\n\tvar position = list.indexOf(element);\r\n\tif ( position !== -1){\r\n\t\tlist.slice(position,1);\r\n\t\t$tw.wiki.addTiddler( new $tw.Tiddler(tiddler,{\&quot;list\&quot;:list}));\r\n\t}\r\n};\r\n\r\nvar patchJsonDate = function (key, value) {\r\n\tif (key === \&quot;created\&quot; || key === \&quot;modified\&quot;){\r\n\t\treturn new Date(value)\r\n\t} else \r\n\t\treturn value\r\n};\r\n\r\nconfigs.import_manager = function (){\r\n\tvar use_importer = $tw.wiki.getTiddlerText(\&quot;$:/plugins/danielo515/GASuploader/config/useImporter\&quot;);\r\n\treturn use_importer ? use_importer.toLowerCase() === \&quot;yes\&quot; : false;\r\n};\r\n\r\nconfigs.downloadOnStartup = function(){\r\n\tvar downloadonstartup = $tw.wiki.getTiddlerText(\&quot;$:/plugins/danielo515/GASuploader/config/downloadOnStartup\&quot;);\r\n\treturn downloadonstartup ? downloadonstartup.toLowerCase() === \&quot;yes\&quot; : false;\r\n};\r\n\r\nconfigs.downloadFullTiddlersOnStartup = function(){\r\n\tvar downloadonstartup = $tw.wiki.getTiddlerText(\&quot;$:/plugins/danielo515/GASuploader/config/downloadOnStartup\&quot;)\r\n\treturn downloadonstartup ? downloadonstartup.toLowerCase() === \&quot;yes\&quot; : false;\r\n};\r\n\r\nreturn { \&quot;getURL\&quot;: getURL, \&quot;config\&quot;:configs, \&quot;popFromTiddlerList\&quot;:popFromTiddlerList,\&quot;patchJsonDate\&quot;:patchJsonDate};\r\n\r\n};\r\n\r\nexports.utils = utils();&quot;,
+            &quot;text&quot;: &quot;/*\\\r\ntitle: $:/plugins/danielo515/GASuploader/lib/utils.js\r\ntype: application/javascript\r\nmodule-type: library\r\n\r\nHelper function useful for plugin global scope\r\n\r\n\\*/\r\n\r\nfunction utils(){\r\nvar GAS_URL = \&quot;$:/plugins/danielo515/GASuploader/config/script_url\&quot;;\r\nvar configs = {\r\n\tserver_list: \&quot;$:/temp/GAS/list_from_server\&quot;,\r\n\timport_tiddler: \&quot;$:/Import\&quot;,\r\n\tserver_communication_error: \&quot;Something went wrong communicating with the server\&quot;,\r\n\tfolder_listed: \&quot;Succesfully list folder\&quot;\r\n};\r\n/* @action the instruction to send to the server\r\n   @options hasmap of options in the form of { name:value }*/\r\nvar getURL = function (action,options){\r\n\tif(action){ //action on url required\r\n\t\tvar url = [$tw.wiki.getTiddlerText(GAS_URL),\&quot;?action=\&quot;,action];\r\n\t\tif(options){ //if there are options push those options into the url\r\n\t\t\t$tw.utils.each(options,function(value,name){\r\n\t\t\t\turl.push(\&quot;&amp;\&quot;);url.push(name);url.push(\&quot;=\&quot;);url.push(value);\r\n\t\t\t});\r\n\t\t}\r\n\t\t\treturn url.join(\&quot;\&quot;);\r\n\t}\r\n\r\n\treturn $tw.wiki.getTiddlerText(GAS_URL);\r\n};\r\n\r\nvar popFromTiddlerList = function(title,element){\r\n\tvar tiddler=$tw.wiki.getTiddler(title); \r\n\tvar list = tiddler ? tiddler.fields.list : [];\r\n\tvar position = list.indexOf(element);\r\n\tif ( position !== -1){\r\n\t\tlist.slice(position,1);\r\n\t\t$tw.wiki.addTiddler( new $tw.Tiddler(tiddler,{\&quot;list\&quot;:list}));\r\n\t}\r\n};\r\n\r\nvar patchJsonDate = function (key, value) {\r\n\tif (key === \&quot;created\&quot; || key === \&quot;modified\&quot;){\r\n\t\treturn new Date(value)\r\n\t} else \r\n\t\treturn value\r\n};\r\n\r\nconfigs.import_manager = function (){\r\n\tvar use_importer = $tw.wiki.getTiddlerText(\&quot;$:/plugins/danielo515/GASuploader/config/useImporter\&quot;);\r\n\treturn use_importer ? use_importer.toLowerCase() === \&quot;yes\&quot; : false;\r\n};\r\n\r\nconfigs.downloadOnStartup = function(){\r\n\tvar downloadonstartup = $tw.wiki.getTiddlerText(\&quot;$:/plugins/danielo515/GASuploader/config/downloadOnStartup\&quot;);\r\n\treturn downloadonstartup ? downloadonstartup.toLowerCase() === \&quot;yes\&quot; : false;\r\n};\r\n\r\nconfigs.downloadFullTiddlersOnStartup = function(){\r\n\tvar downloadonstartup = $tw.wiki.getTiddlerText(\&quot;$:/plugins/danielo515/GASuploader/config/downloadFullTiddlersOnStartup\&quot;)\r\n\treturn downloadonstartup ? downloadonstartup.toLowerCase() === \&quot;yes\&quot; : false;\r\n};\r\n\r\nreturn { \&quot;getURL\&quot;: getURL, \&quot;config\&quot;:configs, \&quot;popFromTiddlerList\&quot;:popFromTiddlerList,\&quot;patchJsonDate\&quot;:patchJsonDate};\r\n\r\n};\r\n\r\nexports.utils = utils();&quot;,
             &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/lib/utils.js&quot;,
             &quot;type&quot;: &quot;application/javascript&quot;,
             &quot;module-type&quot;: &quot;library&quot;
@@ -5498,7 +5553,7 @@ no</pre>
             &quot;text&quot;: &quot;\r\n\\define createpermalink(id) https://docs.google.com/file/d/$id$&quot;
         },
         &quot;$:/plugins/danielo515/GASuploader/modules/startup/initializer.js&quot;: {
-            &quot;text&quot;: &quot;/*\\\ntitle: $:/plugins/danielo515/GASuploader/modules/startup/initializer.js\ntype: application/javascript\nmodule-type: startup\n\n\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\&quot;use strict\&quot;;\n\n// Export name and synchronous status\nexports.name = \&quot;httpposter\&quot;;\nexports.platforms = [\&quot;browser\&quot;];\nexports.after = [\&quot;startup\&quot;];\nexports.synchronous = true;\n\nvar utils = require(\&quot;$:/plugins/danielo515/GASuploader/lib/utils.js\&quot;).utils,\n   config = utils.config;\n\nfunction addNewServertiddlers(jsonTiddlersArr){\n\tvar tiddlers=JSON.parse(jsonTiddlersArr).response;\n\tif(tiddlers[0].ERROR){\n\t\tconsole.log(tiddlers[0]);\n\t\treturn;\n\t}\n\t\n\ttiddlers.forEach(function(tiddler){\n\t\ttiddler.text =\&quot; This tiddler is on the server \&quot;; //use a template here\n\t});\n\tvar importer = require(\&quot;$:/plugins/danielo515/GASuploader/lib/tiddlerImporter.js\&quot;).GAS_importer;\n\timporter.toPluginTiddler(tiddlers,\&quot;$:/temp/GASuploader/Servertiddlers\&quot;);\n\tif (config.downloadFullTiddlersOnStartup()) {\n\t\t$tw.GAS_Http_Handler.downloadShadowTiddlers(\&quot;$:/temp/GASuploader/Servertiddlers\&quot;,\n\t\t\tfunction(data){ importer.silently(JSON.parse(data,utils.patchJsonDate).response);});\n\t};\n};\n\nexports.startup = function() {\n\t$tw.GAS_Http_Handler = new $tw.utils.GAS_Http_Handler($tw.wiki);\n\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-http-upload\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.postTiddler(event.param);\n\t});\n\t\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-POST-Tiddlers\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.postTiddlers(event.param);\n\t});\n\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-GET-TiddlerByTitle\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.getTiddlerbyTitle(event.param);\n\t});\n\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-GET-TiddlerByID\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.getTiddlerbyID(event.param);\n\t});\n\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-ListTiddlers\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.listTiddlers(event.param);\n\t});\n\n\tif(config.downloadOnStartup()){\n\t\t$tw.GAS_Http_Handler.listAllTiddlersExcept($tw.wiki.filterTiddlers(\&quot;[!is[system]]\&quot;),addNewServertiddlers);\n\t}\n};\n\n\n\n})();\n&quot;,
+            &quot;text&quot;: &quot;/*\\\ntitle: $:/plugins/danielo515/GASuploader/modules/startup/initializer.js\ntype: application/javascript\nmodule-type: startup\n\n\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\&quot;use strict\&quot;;\n\n// Export name and synchronous status\nexports.name = \&quot;httpposter\&quot;;\nexports.platforms = [\&quot;browser\&quot;];\nexports.after = [\&quot;startup\&quot;];\nexports.synchronous = true;\n\nvar utils = require(\&quot;$:/plugins/danielo515/GASuploader/lib/utils.js\&quot;).utils,\n   config = utils.config;\n\nfunction addNewServertiddlers(jsonTiddlersArr){\n\tvar tiddlers=JSON.parse(jsonTiddlersArr).response;\n\tif(tiddlers[0].ERROR){\n\t\tconsole.log(tiddlers[0]);\n\t\treturn;\n\t}\n\t\n\tvar serverTiddlerTemplate = $tw.wiki.getTiddlerText(\&quot;$:/plugins/danielo515/GASuploader/language/status/serverTiddler\&quot;);\n\t\n\ttiddlers.forEach(function(tiddler){\n\t\ttiddler.text =serverTiddlerTemplate;\n\t\ttiddler.gas_status=\&quot;pending\&quot;;\n\t});\n\n\tvar importer = require(\&quot;$:/plugins/danielo515/GASuploader/lib/tiddlerImporter.js\&quot;).GAS_importer;\n\t//Save the list of server tiddlers as a temporary shadow tiddler\n\timporter.toPluginTiddler(tiddlers,\&quot;$:/temp/GASuploader/Servertiddlers\&quot;);\n\tif (config.downloadFullTiddlersOnStartup()) {\n\t\t$tw.GAS_Http_Handler.downloadShadowTiddlers(\&quot;$:/temp/GASuploader/Servertiddlers\&quot;,\n\t\t\tfunction(data){ importer.silently(JSON.parse(data,utils.patchJsonDate).response);});\n\t};\n};\n\nexports.startup = function() {\n\t$tw.GAS_Http_Handler = new $tw.utils.GAS_Http_Handler($tw.wiki);\n\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-http-upload\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.postTiddler(event.param);\n\t});\n\t\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-POST-Tiddlers\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.postTiddlers(event.param);\n\t});\n\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-GET-TiddlerByTitle\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.getTiddlerbyTitle(event.param);\n\t});\n\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-GET-TiddlerByID\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.getTiddlerbyID(event.param);\n\t});\n\t$tw.rootWidget.addEventListener(\&quot;pm-GAS-ListTiddlers\&quot;,function(event) {\n\t\t$tw.GAS_Http_Handler.listTiddlers(event.param);\n\t});\n\n\tif(config.downloadOnStartup()){\n\t\t$tw.GAS_Http_Handler.listAllTiddlersExcept($tw.wiki.filterTiddlers(\&quot;[!is[system]]\&quot;),addNewServertiddlers);\n\t}\n};\n\n\n\n})();\n&quot;,
             &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/modules/startup/initializer.js&quot;,
             &quot;type&quot;: &quot;application/javascript&quot;,
             &quot;module-type&quot;: &quot;startup&quot;
@@ -5676,6 +5731,11 @@ no</pre>
             &quot;type&quot;: &quot;text/vnd.tiddlywiki&quot;,
             &quot;text&quot;: &quot;&lt;$list filter=\&quot;[all[shadows+tiddlers]tag[$:/tags/GAS/config]]\&quot;&gt;\n&lt;$transclude tiddler={{!!title}} mode=\&quot;block\&quot;/&gt;\n&lt;/$list&gt;&quot;
         },
+        &quot;$:/plugins/danielo515/GASuploader/ui/icons/process_bar&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/ui/icons/process_bar&quot;,
+            &quot;type&quot;: &quot;image/gif&quot;,
+            &quot;text&quot;: &quot;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&quot;
+        },
         &quot;$:/plugins/danielo515/GASuploader/ui/icons/upload&quot;: {
             &quot;created&quot;: &quot;20141123010930462&quot;,
             &quot;modified&quot;: &quot;20141123012419739&quot;,
@@ -5706,12 +5766,25 @@ no</pre>
     }
 }</pre>
 </div>
-<div author="Danielo Rodriguez" core-version="&gt;=5.1.4" dependents="" description="GOOGLE apps script syncer" plugin-type="plugin" source="https://github.com/danielo515/TW5-GASUploader" title="$:/plugins/danielo515/GASuploader/config" type="application/json" version="0.1.0" revision="0" bag="default">
+<div created="20141208100949161" modified="20141208100948075" title="$:/plugins/danielo515/GASuploader/config/useImporter" type="text/vnd.tiddlywiki" revision="0" bag="default">
+<pre>no</pre>
+</div>
+<div created="20141123195138418" title="$:/plugins/danielo515/GASuploader/language/Notifications/Processing/Tiddler" type="text/vnd.tiddlywiki" revision="0" bag="default">
+<pre>Starting to download UploadMe</pre>
+</div>
+<div created="20141127083525715" title="$:/plugins/danielo515/GASuploader/temp/uploaded" type="text/vnd.tiddlywiki" revision="0" bag="default">
+<pre></pre>
+</div>
+<div author="Danielo Rodriguez" core-version="&gt;=5.1.4" dependents="" description="Community configurations and customizations for tiddlydrive" plugin-type="plugin" source="https://github.com/danielo515/TiddlyDrive4Community" title="$:/plugins/danielo515/TiddlyDrive/community" type="application/json" version="0.1.0" revision="0" bag="default">
 <pre>{
     &quot;tiddlers&quot;: {
+        &quot;$:/plugins/danielo515/GASuploader/config/downloadFullTiddlersOnStartup&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/config/downloadFullTiddlersOnStartup&quot;,
+            &quot;text&quot;: &quot;no&quot;
+        },
         &quot;$:/plugins/danielo515/GASuploader/config/downloadOnStartup&quot;: {
             &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/config/downloadOnStartup&quot;,
-            &quot;text&quot;: &quot;no&quot;
+            &quot;text&quot;: &quot;yes&quot;
         },
         &quot;$:/plugins/danielo515/GASuploader/config/script_url&quot;: {
             &quot;created&quot;: &quot;20141120203401899&quot;,
@@ -5719,15 +5792,35 @@ no</pre>
             &quot;title&quot;: &quot;$:/plugins/danielo515/GASuploader/config/script_url&quot;,
             &quot;type&quot;: &quot;text/plain&quot;,
             &quot;text&quot;: &quot;https://script.google.com/macros/s/AKfycbzC9OmCxJ3sq73CCjE7Goz6Orx_VXCte6w83zsYqNjH_Ov6kDfg/exec&quot;
+        },
+        &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/TiddlyDriveTools&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/TiddlyDriveTools&quot;,
+            &quot;caption&quot;: &quot;TD Tools&quot;,
+            &quot;list-before&quot;: &quot;$:/core/ui/SideBar/Open&quot;,
+            &quot;tags&quot;: &quot;$:/tags/SideBar&quot;,
+            &quot;type&quot;: &quot;text/vnd.tiddlywiki&quot;,
+            &quot;text&quot;: &quot;{{$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/session}}\n\n\n{{$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/serverTiddlers}}&quot;
+        },
+        &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/serverTiddlers&quot;: {
+            &quot;caption&quot;: &quot;Server TOC&quot;,
+            &quot;list-before&quot;: &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/session&quot;,
+            &quot;title&quot;: &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/serverTiddlers&quot;,
+            &quot;type&quot;: &quot;text/vnd.tiddlywiki&quot;,
+            &quot;text&quot;: &quot;This tiddlers are on the server. Click on any to open and download it\n\n&lt;$list filter=\&quot;[[$:/temp/GASuploader/Servertiddlers]plugintiddlers[]]\&quot; variable=\&quot;serverTitle\&quot;&gt;\n&lt;$list filter=\&quot;[&lt;serverTitle&gt;!is[tiddler]]\&quot;&gt;\n&lt;div class=\&quot;tc-menu-list-item\&quot;&gt;\n&lt;$button message=\&quot;pm-GAS-GET-TiddlerByTitle\&quot; class=\&quot;tc-btn-invisible tc-btn-link\&quot; param=&lt;&lt;serverTitle&gt;&gt;&gt;\n&lt;$action-navigate $to=&lt;&lt;serverTitle&gt;&gt;/&gt;\n&lt;$text text=&lt;&lt;serverTitle&gt;&gt;/&gt;\n&lt;/$button&gt;\n&lt;/div&gt;\n&lt;/$list&gt;&quot;
+        },
+        &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/session&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/sidebar/session&quot;,
+            &quot;caption&quot;: &quot;Session&quot;,
+            &quot;list-after&quot;: &quot;$:/core/ui/SideBar/Open&quot;,
+            &quot;text&quot;: &quot;Configure your session\n\n\n|''Username:''|&lt;$edit-text  tag=\&quot;input\&quot; tiddler=\&quot;$:/status/UserName\&quot; default=\&quot;Anonymous\&quot;/&gt;|\n|''Subfolder'':|&lt;$edit-text tiddler=\&quot;$:/plugins/danielo515/GASuploader/config/subfolder\&quot; tag=\&quot;input\&quot; default=\&quot;\&quot; placeholder=\&quot;FolderName\&quot;/&gt;|&quot;
+        },
+        &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/styles/basic.css&quot;: {
+            &quot;title&quot;: &quot;$:/plugins/danielo515/TiddlyDrive/community/ui/styles/basic.css&quot;,
+            &quot;tags&quot;: &quot;$:/tags/Stylesheet&quot;,
+            &quot;text&quot;: &quot;.tc-btn-link:hover{\n\ttext-decoration: underline;\n}\n\n.tc-sidebar-lists .tc-btn-link {\ncolor: #999;\n}&quot;
         }
     }
 }</pre>
-</div>
-<div created="20141123195138418" title="$:/plugins/danielo515/GASuploader/language/Notifications/Processing/Tiddler" type="text/vnd.tiddlywiki" revision="0" bag="default">
-<pre>Starting to download UploadMe</pre>
-</div>
-<div created="20141127083525715" title="$:/plugins/danielo515/GASuploader/temp/uploaded" type="text/vnd.tiddlywiki" revision="0" bag="default">
-<pre></pre>
 </div>
 <div author="JoaoBolila" dependents="" description="Highlight.js plugin for TiddlyWiki5" list="license" plugin-type="plugin" title="$:/plugins/tiddlywiki/highlight" type="application/json" version="5.1.5" revision="0" bag="default">
 <pre>{
@@ -5764,12 +5857,16 @@ no</pre>
 }</pre>
 </div>
 <div created="20141125081843920" modified="20141130135134503" title="$:/SiteSubtitle" type="text/vnd.tiddlywiki" revision="0" bag="default">
-<pre>everyone can contribute</pre>
+<pre>Signing as &lt;$view tiddler=&quot;$:/status/UserName&quot;&gt;
+@@color:red;
+Anonymous
+@@
+&lt;/$view&gt;</pre>
 </div>
 <div created="20141122121214741" modified="20141130135124330" title="$:/SiteTitle" type="text/vnd.tiddlywiki" revision="0" bag="default">
 <pre>TiddlyDrive4Community</pre>
 </div>
-<div list="HelloThere WorkFlow [[How does this work?]] [[Configuring your session]]" title="$:/StoryList" revision="1" bag="default">
+<div list="HelloThere WorkFlow [[How does this work?]] GettingStarted" title="$:/StoryList" revision="1" bag="default">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json" revision="0" bag="default">
@@ -5887,6 +5984,17 @@ All tiddlers are saved under the same folder. But you can specify a subfolder na
 !! V0.1.0
 </pre>
 </div>
+<div created="NaNNaNNaNNaNNaNNaNNaN" creator="Tobias Beer" gas_id="0B-USg0ow4LCZTUFFLTkyMjUzZDE5LTFlYWUtNDFiYS04ZGI0LWUxNWEzOTA4MGNlOQ" gas_uploaded="2014-12-04T11:01:56.943Z" modified="20141208085635361" modifier="Tobias Beer" title="GettingStarted" type="text/vnd.tiddlywiki" revision="0" bag="default">
+<pre>Ready to start? Take a moment to configure your session:
+
+; Username
+: &lt;$edit-text  tag=&quot;input&quot; tiddler=&quot;$:/status/UserName&quot; default=&quot;Anonymous&quot;/&gt;
+: tiddlers will be saved with your username when you create or edit tiddlers:
+; Folder
+: &lt;$edit-text tiddler=&quot;$:/plugins/danielo515/GASuploader/config/subfolder&quot; tag=&quot;input&quot; default=&quot;&quot; placeholder=&quot;subfolder name&quot;/&gt;
+: You can specify a subfolder to which tiddlers are going to be uploaded.
+:By default, all tiddlers are saved under the main folder</pre>
+</div>
 <div created="20140901120057909" modified="20141130140354977" title="HelloThere" type="text/vnd.tiddlywiki" revision="0" bag="default">
 <pre>Welcome to the TiddlyDrive version for Community. This is in beta stage, so use it with caution. The idea of the community edition is to use it as a tool for documenting  [[tiddlywiki5|http://tiddlywiki.com]]. This is ''not official in any way'', is just an idea that I got and I wanted to try it out. If you thing this can be usefult for you to contribute, don't hesitate to use it!
 
@@ -5920,14 +6028,14 @@ And here is a list of ''planned and future features'':
 <div gas_id="0B-USg0ow4LCZTUFFLWM2OGZlNzRkLTFlNDMtNDk5Ni04NTc4LWI2NzcwNWJlNWNlZQ" gas_uploaded="2014-11-27T08:28:41.268Z" title="The first tiddler" type="text/vnd.tiddlywiki" revision="0" bag="default">
 <pre>Hello world community!</pre>
 </div>
-<div created="20141127075808668" modified="20141127081925846" title="WorkFlow" type="text/vnd.tiddlywiki" revision="0" bag="default">
+<div created="20141127075808668" modified="20141208090047841" title="WorkFlow" type="text/vnd.tiddlywiki" revision="0" bag="default">
 <pre>!!Basic
 The very basic workflow is as follows: 
 
 # You create a tiddler //(or more than one)// or edit an existing one you want to improve
 # Click the upload button
 # The tiddler is uploaded to this public [[googleDrive folder|https://drive.google.com/folderview?id=0B-USg0ow4LCZREVYcjJpYzhOcFU&amp;usp=sharing]]
-# The tiddler is ''not added to the main wiki immediately''. An administrator should review it and add to this wiki as part of the main collection and maybe make a pull request to the official [[tiddliwiki repository|https://github.com/Jermolene/TiddlyWiki5]].
+# The tiddler is ''not added to the main wiki immediately''. Instead it is added to the //server tiddlers collection// that is pulled from the server on startup.
 
 !!Offline
 It is awesome, I know, but you can download this wiki to your local drive, or your phone, make all the editions you want and upload them later. This way you can keep an offline copy of your contributions.
