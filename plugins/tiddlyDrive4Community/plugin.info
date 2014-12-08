@@ -1,0 +1,8 @@
+{
+	"title": "$:/plugins/danielo515/TiddlyDrive/community",
+	"description": "Community configurations and customizations for tiddlydrive",
+	"author": "Danielo Rodriguez",
+	"core-version": ">=5.1.4",
+	"version":"0.1.0",
+	"source":"https://github.com/danielo515/TiddlyDrive4Community"
+}
