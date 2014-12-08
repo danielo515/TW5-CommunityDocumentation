@@ -3,7 +3,5 @@ caption: Session
 tags: $:/tags/SideBar
 list-after: $:/core/ui/SideBar/Open
 
-''Username:'' <$edit-text  tag="input" tiddler="$:/status/UserName" default="Anonymous"/>
-
-
-''Subfolder'': <$edit-text tiddler="$:/plugins/danielo515/GASuploader/config/subfolder" tag="input" default="" placeholder="FolderName"/>
+|''Username:''|<$edit-text  tag="input" tiddler="$:/status/UserName" default="Anonymous"/>|
+|''Subfolder'':|<$edit-text tiddler="$:/plugins/danielo515/GASuploader/config/subfolder" tag="input" default="" placeholder="FolderName"/>|
